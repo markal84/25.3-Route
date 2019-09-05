@@ -1,60 +1,23 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var fs = require('fs');
 var app = express();
-var stringifyFile;
+app.use(express.static('assets'));
 
-app.use(bodyParser.json());
-
-app.get('/getNote', function (req, res) {
-    fs.readFile('./package.json', 'utf8', function (err, data) {
-        if (err) throw err;
-        stringifyFile = data
-        res.send(data);
-
-        console.log('File served');
-    });
+app.get('/', function (req, res) {
+    res.send('/index.html');
 });
 
-app.post('/updateNote/:note', function (req, res) {
-    fs.readFile('./package.json', 'utf8', function (err, data) {
-        stringifyFile = data + req.params.note;
-        fs.writeFile('./package_update.json', stringifyFile, function (err) {
-            if (err) throw err;
-            stringifyFile = req.params.note;
-            res.send(stringifyFile);
-            console.log('File updated by string: ' + req.params.note);
-        });
-    });
+app.get('/userform', function (req, res) {
+    const response = {
+        first_name: req.query.first_name,
+        last_name: req.query.last_name
+    };
+    res.json(response);
 });
 
-app.listen(3000);
+var server = app.listen(3000, 'localhost', function() {
+    var host = server.address().address;
+    var port = server.address().port;
 
-
-
-/*app.get('/', function(req, res){
-    res.send('main page - to get .json file put localhost:3000/getNote. To update .json put localhost:3000/updateNote:yourtext');
+    console.log('Przykładowa aplikacja nasłuchuje na http://' + host + ':' + port);
 });
-
-app.get('/getNote', function(req, res){
-    fs.readFile('./package.json', 'utf8', function(err, data) {
-        if (err) throw err;
-        stringifyFile = data
-        res.send(data);
-    });
-});
-
-app.post('/updateNote/:note', function (req, res) {
-    fs.readFile('./package.json', 'utf8', function (err, data) {
-        stringifyFile += req.params.note;
-        fs.writeFile('./test.json', stringifyFile, function (err) {
-            if (err) throw err;
-            stringifyFile = req.params.note;
-            res.send(stringifyFile);
-            console.log('File updated');
-        });
-    });
-});
-*/
-
 
