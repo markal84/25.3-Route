@@ -17,13 +17,13 @@ app.get('/getNote', function (req, res) {
 });
 
 app.post('/updateNote/:note', function (req, res) {
-    fs.readFile('./test.json', 'utf8', function (err, data) {
+    fs.readFile('./package.json', 'utf8', function (err, data) {
         stringifyFile = data + req.params.note;
         fs.writeFile('./package_update.json', stringifyFile, function (err) {
             if (err) throw err;
             stringifyFile = req.params.note;
             res.send(stringifyFile);
-            console.log('File updated');
+            console.log('File updated by string: ' + req.params.note);
         });
     });
 });
