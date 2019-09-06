@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
 
+// trying to fix problems with css links 
+app.use(express.static('css'));
+app.use(express.static('assets'));
+
 // Pug declarations
 app.set('view engine', 'pug');
 app.set('views','./views');
