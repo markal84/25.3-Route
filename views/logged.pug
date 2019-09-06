@@ -1,0 +1,15 @@
+html    
+    head
+        title=title
+    body
+    include ./header.pug
+    div.wrapper
+        if(user.first_name.length >= 2 || user.last_name.length >= 2 )
+
+            h3 Hello #{user.first_name} #{user.last_name}! 
+            h4 Login Succesfull!
+
+        else
+
+            p Please insert your Name and Last Name correctly
+    include ./footer.pug

@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        title= title
+        link(href='../views/style.css', rel='stylesheet', type='text/css')
+    body
+        include ./header.pug
+        div.container
+            h4 Please insert your First Name and Last Name
+        form(action=url)
+            p.firstName First Name:
+            input(type='text', name='first_name')
+
+            p.lastName Last Name:
+            input(type='text', name='last_name')
+
+            button.loginButton(type='submit') Log in
+
+        include ./footer.pug    
